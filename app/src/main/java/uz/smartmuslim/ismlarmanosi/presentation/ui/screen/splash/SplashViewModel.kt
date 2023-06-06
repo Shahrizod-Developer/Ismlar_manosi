@@ -1,10 +1,15 @@
 package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.splash
 
+import uz.smartmuslim.ismlarmanosi.utils.AppViewModel
 import uz.smartmuslim.ismlarmanosi.utils.BaseViewModel
 
-interface SplashViewModel : BaseViewModel<Unit, SplashUiState, Nothing>
+interface SplashViewModel : AppViewModel<SplashIntent, SplashUIState, Nothing> {
+}
 
-data class SplashUiState(
-    val isOpenMain: Boolean = false,
-    val isOpenIntro: Boolean = false
+sealed class SplashIntent {
+    object OpenMaiScreen: SplashIntent()
+}
+
+data class SplashUIState(
+    val title: String
 )

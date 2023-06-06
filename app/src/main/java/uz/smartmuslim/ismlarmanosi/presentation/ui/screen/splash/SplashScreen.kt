@@ -2,61 +2,74 @@ package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.navigator.currentOrThrow
-import kotlinx.coroutines.MainScope
+import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.androidx.AndroidScreen
+import cafe.adriel.voyager.hilt.getViewModel
+import org.orbitmvi.orbit.compose.collectAsState
 import uz.smartmuslim.ismlarmanosi.R
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.main.MainScreen
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Color
 
-class SplashScreen : Screen {
-
+class SplashScreen : AndroidScreen() {
     @Composable
     override fun Content() {
-        TODO("Not yet implemented")
+        val viewModel: SplashViewModel = getViewModel<SplashViewModelImpl>()
+        val uiState = viewModel.collectAsState().value
+        SplashScreenContent(uiState, viewModel::onEventDispatcher)
     }
 }
 
 @Composable
-private fun SplashScreenContent(uiState: SplashUiState, navigator: Navigator) {
+fun SplashScreenContent(uiState: SplashUIState, onEventDispatcher: (SplashIntent) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Bg_Color),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+//        LaunchedEffect(key1 = true) {
+//            onEventDispatcher(SplashIntent.OpenMaiScreen)
+//        }
 
-    Box(modifier = Modifier.fillMaxSize().background(Bg_Color)) {
-
-        val contentDescriptionImage by remember {
-            mutableStateOf("Ismlar ma'nosi")
-        }
-
-        Image(
-            modifier = Modifier
-                .size(150.dp)
-                .align(Alignment.Center),
-            painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = contentDescriptionImage,
-            contentScale = ContentScale.FillBounds
+        Text(text = "Ismlar ma'nosi",
+            Modifier.padding(20.dp),
+            fontSize = 30.sp,
+            fontFamily = FontFamily(Font(( R.font.geometria_medium))),
+            color = Color.White
         )
 
+        Text(text = "O'z ismingiz qanday ma'no anglatishini bilib oling",
+            Modifier.padding(20.dp),
+            textAlign = TextAlign.Center,
+            fontFamily = FontFamily(Font(( R.font.geometria_medium))),
+            fontSize = 22.sp)
+        Image(
+            painter = painterResource(id = R.drawable.splash),
+            contentDescription = "icon",
+            Modifier.padding(60.dp).size(240.dp)
+        )
     }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun SplashScreenPreview() {
-    SplashScreenContent(SplashUiState(), LocalNavigator.currentOrThrow)
 }
