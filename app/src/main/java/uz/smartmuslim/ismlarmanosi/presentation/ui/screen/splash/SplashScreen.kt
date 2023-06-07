@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,22 +55,43 @@ fun SplashScreenContent(uiState: SplashUIState, onEventDispatcher: (SplashIntent
 //            onEventDispatcher(SplashIntent.OpenMaiScreen)
 //        }
 
-        Text(text = "Ismlar ma'nosi",
+        Text(
+            text = "Ismlar ma'nosi",
             Modifier.padding(20.dp),
-            fontSize = 30.sp,
-            fontFamily = FontFamily(Font(( R.font.geometria_medium))),
-            color = Color.White
+            fontSize = 40.sp,
+            fontFamily = FontFamily(Font((R.font.geometria_medium))),
+            color = Color.White,
+            fontWeight = FontWeight.Bold
         )
 
-        Text(text = "O'z ismingiz qanday ma'no anglatishini bilib oling",
+        Text(
+            text = "O'z ismingiz qanday ma'no anglatishini bilib oling",
             Modifier.padding(20.dp),
             textAlign = TextAlign.Center,
-            fontFamily = FontFamily(Font(( R.font.geometria_medium))),
-            fontSize = 22.sp)
+            fontFamily = FontFamily(Font((R.font.geometria_medium))),
+            fontSize = 20.sp,
+            color = Color.White
+        )
         Image(
             painter = painterResource(id = R.drawable.splash),
             contentDescription = "icon",
-            Modifier.padding(60.dp).size(240.dp)
+            Modifier
+                .padding(60.dp)
+                .size(240.dp)
+        )
+
+    }
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomCenter
+    ) {
+        Text(
+            text = "Smart Muslim Production",
+            Modifier.padding(20.dp),
+            textAlign = TextAlign.Center,
+            fontFamily = FontFamily(Font((R.font.geometria_medium))),
+            fontSize = 20.sp,
+            color = Color.White
         )
     }
 }
