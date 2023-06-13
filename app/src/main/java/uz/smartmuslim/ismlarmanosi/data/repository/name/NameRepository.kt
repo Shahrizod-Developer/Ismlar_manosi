@@ -7,4 +7,6 @@ interface NameRepository {
 
     fun getBoyNamesCount(): Flow<Int>
     fun getGirlNamesCount(): Flow<Int>
+
+    suspend fun syncNames()
 }

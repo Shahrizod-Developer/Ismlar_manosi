@@ -1,6 +1,7 @@
 package uz.smartmuslim.ismlarmanosi
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.SlideTransition
@@ -27,6 +29,7 @@ import uz.smartmuslim.ismlarmanosi.presentation.navigation.NavigationHandler
 import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.splash.SplashScreen
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.IsmlarManosiTheme
+import uz.smartmuslim.ismlarmanosi.service.EventService
 import javax.inject.Inject
 
 @Suppress("OPT_IN_IS_NOT_ENABLED")
@@ -40,7 +43,8 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("FlowOperatorInvokedInComposition", "CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val intent = Intent(this, EventService::class.java)
+        this.startService(intent)
         setContent {
             IsmlarManosiTheme {
                 Navigator(screen = SplashScreen(),

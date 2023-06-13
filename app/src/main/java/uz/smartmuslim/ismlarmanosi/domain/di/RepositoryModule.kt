@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import uz.smartmuslim.ismlarmanosi.data.repository.intro.IntroRepositoryImpl
-import uz.smartmuslim.ismlarmanosi.data.repository.intro.IntroRepository
+import uz.smartmuslim.ismlarmanosi.data.repository.name.NameRepository
+import uz.smartmuslim.ismlarmanosi.data.repository.name.impl.NameRepositoryImpl
 import javax.inject.Singleton
 
 
@@ -14,5 +14,5 @@ import javax.inject.Singleton
 interface RepositoryModule {
 
     @[Binds Singleton]
-    fun bindIntroRepository(impl: IntroRepositoryImpl): IntroRepository
+    fun bindNameRepository(impl: NameRepositoryImpl): NameRepository
 }

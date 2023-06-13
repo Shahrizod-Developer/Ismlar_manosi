@@ -1,6 +1,6 @@
 package uz.smartmuslim.ismlarmanosi.domain.usecase
 
-interface SplashScreenUseCase {
+interface SplashUseCase {
 
     fun setIsFirstIntro(state:Boolean)
 }
