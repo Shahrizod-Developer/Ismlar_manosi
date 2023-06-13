@@ -9,15 +9,10 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import uz.smartmuslim.ismlarmanosi.R
 
-data class NavigationItem(
-    val icon: ImageVector,
-    val title: String
-)
-
-object NavigationItems {
-    val Home = NavigationItem(Icons.Filled.Home, "Home")
-    val Search = NavigationItem(Icons.Filled.Search, "Search")
-    val Article = NavigationItem(Icons.Filled.AccountBox, "Article")
-    val Favorite = NavigationItem(Icons.Filled.Favorite, "Favorite")
-    val Settings = NavigationItem(Icons.Filled.Settings, "Settings")
+sealed class NavigationItem(var route: String, var icon: Int, var title: String) {
+    object Home : NavigationItem("home", R.drawable.baseline_home_24, "Home")
+    object Search : NavigationItem("search", R.drawable.baseline_search_24, "Search")
+    object Article : NavigationItem("article", R.drawable.baseline_newspaper_24, "Article")
+    object Favorite : NavigationItem("favorite", R.drawable.baseline_bookmark_border_24, "Favorite")
+    object Settings : NavigationItem("settings", R.drawable.baseline_settings_24, "Settings")
 }

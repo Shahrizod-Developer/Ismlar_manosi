@@ -1,4 +1,4 @@
-package uz.smartmuslim.ismlarmanosi.domain.repository.intro
+package uz.smartmuslim.ismlarmanosi.data.repository.intro
 
 import kotlinx.coroutines.flow.Flow
 

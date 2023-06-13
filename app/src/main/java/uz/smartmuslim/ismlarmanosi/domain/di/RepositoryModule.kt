@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import uz.smartmuslim.ismlarmanosi.data.repository.intro.IntroRepositoryImpl
-import uz.smartmuslim.ismlarmanosi.domain.repository.intro.IntroRepository
+import uz.smartmuslim.ismlarmanosi.data.repository.intro.IntroRepository
 import javax.inject.Singleton
 
 

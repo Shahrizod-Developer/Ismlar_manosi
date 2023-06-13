@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
     def retrofit_version = "2.9.0"
     def currentVersion = '1.0.0-rc03'
 

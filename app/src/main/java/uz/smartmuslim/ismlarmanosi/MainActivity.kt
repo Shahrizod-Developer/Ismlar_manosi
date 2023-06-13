@@ -1,7 +1,10 @@
 package uz.smartmuslim.ismlarmanosi
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -11,6 +14,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import cafe.adriel.voyager.navigator.Navigator
@@ -20,6 +25,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.smartmuslim.ismlarmanosi.presentation.navigation.NavigationHandler
 import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.splash.SplashScreen
+import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.IsmlarManosiTheme
 import javax.inject.Inject
 
@@ -34,6 +40,7 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("FlowOperatorInvokedInComposition", "CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             IsmlarManosiTheme {
                 Navigator(screen = SplashScreen(),
@@ -50,4 +57,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }

@@ -51,9 +51,9 @@ fun SplashScreenContent(uiState: SplashUIState, onEventDispatcher: (SplashIntent
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        LaunchedEffect(key1 = true) {
-//            onEventDispatcher(SplashIntent.OpenMaiScreen)
-//        }
+        LaunchedEffect(key1 = true) {
+            onEventDispatcher(SplashIntent.OpenMaiScreen)
+        }
 
         Text(
             text = "Ismlar ma'nosi",

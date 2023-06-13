@@ -13,34 +13,34 @@ interface NameApi {
     @GET("/api/names/v1/")
     suspend fun getAllNames(): Response<List<NameResponse>>
 
-    @GET("/api/names/v1/boys")
-    suspend fun getAllBoyNames(): Response<List<NameResponse>>
+//    @GET("/api/names/v1/boys")
+//    suspend fun getAllBoyNames(): Response<List<NameResponse>>
+//
+//    @GET("/api/names/v1/girls")
+//    suspend fun getAllGirlNames(): Response<List<NameResponse>>
 
-    @GET("/api/names/v1/girls")
-    suspend fun getAllGirlNames(): Response<List<NameResponse>>
+//    @GET("/api/names/v1/get/rukns")
+//    suspend fun getNamesByRuknAndGender(
+//        @Query("rukn") rukn: String,
+//        @Query("gender") gender: String
+//    ): Response<List<NameResponse>>
 
-    @GET("/api/names/v1/get/rukns")
-    suspend fun getNamesByRuknAndGender(
-        @Query("rukn") rukn: String,
-        @Query("gender") gender: String
-    ): Response<List<NameResponse>>
+//    @GET("/api/names/v1/get/rukn")
+//    suspend fun getNamesByRukn(
+//        @Query("rukn") rukn: String,
+//        @Query("gender") gender: String
+//    ): Response<List<NameResponse>>
 
-    @GET("/api/names/v1/get/rukn")
-    suspend fun getNamesByRukn(
-        @Query("rukn") rukn: String,
-        @Query("gender") gender: String
-    ): Response<List<NameResponse>>
-
-    @GET("/get/{id}")
-    fun getByName(@Path("id") id: String): Response<NameResponse>
-
-    @GET("/get/seenCount/{id}")
-    fun getSeenCount(@Path("id") id: String): Response<Int>
-
-    @GET("/get/likeCount/{id}")
-    fun getLikeCount(@Path("id") id: String): Response<Int>
-
-    @GET("/search")
-    fun searchByName(@Query("search") search: String): Response<List<NameResponse>>
+//    @GET("/get/{id}")
+//    fun getByName(@Path("id") id: String): Response<NameResponse>
+//
+//    @GET("/get/seenCount/{id}")
+//    fun getSeenCount(@Path("id") id: String): Response<Int>
+//
+//    @GET("/get/likeCount/{id}")
+//    fun getLikeCount(@Path("id") id: String): Response<Int>
+//
+//    @GET("/search")
+//    fun searchByName(@Query("search") search: String): Response<List<NameResponse>>
 
 }
