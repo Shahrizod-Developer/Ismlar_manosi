@@ -10,7 +10,7 @@ import uz.smartmuslim.ismlarmanosi.data.remote.response.NameResponse
 
 interface NameApi {
 
-    @GET("/api/names/v1/")
+    @GET("/api/names/v1")
     suspend fun getAllNames(): Response<List<NameResponse>>
 
 }

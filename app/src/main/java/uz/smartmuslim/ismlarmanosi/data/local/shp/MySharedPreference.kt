@@ -13,4 +13,6 @@ class MySharedPreference @Inject constructor(
     var isFirst: Boolean by Booleans(false)
 
     var isFirstIntro: Boolean by Booleans(false)
+
+    var temp:Boolean by Booleans(true)
 }

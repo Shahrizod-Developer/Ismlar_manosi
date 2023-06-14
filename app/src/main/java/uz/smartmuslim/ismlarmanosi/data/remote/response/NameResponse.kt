@@ -1,32 +1,72 @@
 package uz.smartmuslim.ismlarmanosi.data.remote.response
 
-import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
+import uz.smartmuslim.ismlarmanosi.data.local.room.entity.NameEntity
 import uz.smartmuslim.ismlarmanosi.data.model.Gender
 
 data class NameResponse(
-    val id: String,
-    val gender: Gender,
-    @SerializedName("seen_count")
-    val seenCount: Int,
-    @SerializedName("like_count")
-    val likeCount: Int,
-    @SerializedName("latin_name")
-    val latinName: String,
-    @SerializedName("latin_desc")
-    val latinDesc: String,
-    @SerializedName("krill_name")
-    val krillName: String,
-    @SerializedName("krill_desc")
-    val krillDesc: String,
-    @SerializedName("english_name")
-    val englishName: String,
-    @SerializedName("english_desc")
-    val englishDesc: String,
-    val rukn: String,
-    val deleted: Boolean,
-    @SerializedName("created_date")
-    val createdDate: String,
-    @SerializedName("last_modified_date")
-    val lastModifiedDate: String
-)
+    @SerializedName("id")
+    val id: String? = null,
+
+    @SerializedName("gender")
+    val gender: String? = null,
+
+    @SerializedName("seenCount")
+    val seenCount: Int = 0,
+    @SerializedName("likeCount")
+    val likeCount: Int = 0,
+
+    @SerializedName("latinName")
+    val latinName: String? = null,
+
+    @SerializedName("latinDesc")
+    val latinDesc: String? = null,
+
+    @SerializedName("krillName")
+    val krillName: String? = null,
+
+    @SerializedName("krillDesc")
+    val krillDesc: String? = null,
+
+    @SerializedName("englishName")
+    val englishName: String? = null,
+
+    @SerializedName("englishDesc")
+    val englishDesc: String? = null,
+
+    @SerializedName("rukn")
+    val rukn: String? = null,
+
+    @SerializedName("deleted")
+    val deleted: Boolean = false,
+
+    @SerializedName("createdDate")
+    val createdDate: String? = null,
+
+    @SerializedName("lastModifiedDate")
+    val lastModifiedDate: String? = null
+) {
+    fun toEntity(): NameEntity {
+
+        var sex = Gender.MEN
+        if (gender.equals("WOMEN")) sex = Gender.WOMEN
+
+        return NameEntity(
+            id!!,
+            sex,
+            seenCount,
+            likeCount,
+            latinName,
+            latinDesc,
+            krillName,
+            krillDesc,
+            englishName,
+            englishDesc,
+            rukn,
+            deleted,
+            createdDate,
+            lastModifiedDate
+        )
+    }
+
+}

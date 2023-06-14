@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import uz.smartmuslim.ismlarmanosi.data.model.Gender
-
 @Entity(tableName = "name_entity")
 data class NameEntity(
     @PrimaryKey(autoGenerate = false)
@@ -15,21 +14,21 @@ data class NameEntity(
     @ColumnInfo(name = "like_count")
     val likeCount: Int,
     @ColumnInfo(name = "latin_name")
-    val latinName: String,
+    val latinName: String?,
     @ColumnInfo(name = "latin_desc")
-    val latinDesc: String,
+    val latinDesc: String?,
     @ColumnInfo(name = "krill_name")
-    val krillName: String,
+    val krillName: String?,
     @ColumnInfo(name = "krill_desc")
-    val krillDesc: String,
+    val krillDesc: String?,
     @ColumnInfo(name = "english_name")
-    val englishName: String,
+    val englishName: String?,
     @ColumnInfo(name = "english_desc")
-    val englishDesc: String,
-    val rukn: String,
+    val englishDesc: String?,
+    val rukn: String?,
     val deleted: Boolean,
     @ColumnInfo(name = "created_date")
-    val createdDate: String,
+    val createdDate: String?,
     @ColumnInfo(name = "last_modified_date")
-    val lastModifiedDate: String
+    val lastModifiedDate: String?
 )

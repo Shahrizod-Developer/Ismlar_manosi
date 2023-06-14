@@ -1,5 +1,6 @@
 package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,17 +22,20 @@ class HomeScreenViewModelImpl @Inject constructor(
     private val navigation: AppNavigation
 ) : ViewModel(), HomeScreenViewModel {
 
-    private var boyNamesCount = 0
-    private var girlNamesCount = 0
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.syncNames()
+        }
+    }
     override fun onEventDispatchers(intent: HomeIntent) = intent {
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCase.getGirlNamesCount().collectLatest {
                 HomeUiState(0, it)
             }
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCase.getBoyNamesCount().collectLatest {
                 HomeUiState(it, 0)
             }

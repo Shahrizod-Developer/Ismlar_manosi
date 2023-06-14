@@ -12,4 +12,5 @@ class HomeUseCaseImpl @Inject constructor(
     override fun getBoyNamesCount(): Flow<Int> = repository.getBoyNamesCount()
 
     override fun getGirlNamesCount(): Flow<Int> = repository.getGirlNamesCount()
+    override suspend fun syncNames() = repository.syncNames()
 }
