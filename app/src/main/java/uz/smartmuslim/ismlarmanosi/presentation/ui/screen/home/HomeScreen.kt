@@ -34,19 +34,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.androidx.AndroidScreen
+import cafe.adriel.voyager.hilt.getViewModel
+import org.orbitmvi.orbit.compose.collectAsState
 import uz.smartmuslim.ismlarmanosi.R
+import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.main.NavigationItem
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Image_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
 
 class HomeScreen : AndroidScreen() {
     @Composable
     override fun Content() {
-        HomeScreenContent()
+        val viewModel: HomeScreenViewModel = getViewModel<HomeScreenViewModelImpl>()
+        val uiState = viewModel.collectAsState().value
+        HomeScreenContent(uiState, viewModel::onEventDispatchers)
     }
 }
 
 @Composable
-fun HomeScreenContent() {
+fun HomeScreenContent(uiState: HomeUiState, onEventDispatchers: (HomeIntent) -> Unit) {
 
     Column(
         modifier = Modifier
@@ -154,7 +159,7 @@ fun HomeScreenContent() {
                 )
 
                 Text(
-                    text = "13000",
+                    text = uiState.boyNamesCount.toString(),
                     Modifier
                         .padding(top = 20.dp),
                     fontSize = 18.sp,
@@ -193,7 +198,7 @@ fun HomeScreenContent() {
                 )
 
                 Text(
-                    text = "13000",
+                    text = uiState.girlNameCount.toString(),
                     Modifier
                         .padding(top = 20.dp),
                     fontSize = 18.sp,
@@ -201,7 +206,6 @@ fun HomeScreenContent() {
                     color = Color.Black,
                     fontWeight = FontWeight.Bold
                 )
-
             }
         }
 

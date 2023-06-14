@@ -2,21 +2,15 @@ package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home
 
 import uz.smartmuslim.ismlarmanosi.utils.BaseViewModel
 
-interface HomeScreenViewModel : BaseViewModel<HomeIntent, HomeUiState, SideEffect>
+interface HomeScreenViewModel : BaseViewModel<HomeIntent, HomeUiState, Any>
 
 sealed interface HomeIntent {
 
-    data class BoysNameCount(var count: Int) : HomeIntent
-
-    data class GirlsNameCount(var count: Int) : HomeIntent
 
 }
 
-sealed interface HomeUiState {
+data class HomeUiState(
+    var boyNamesCount: Int = 0,
+    var girlNameCount: Int = 0
+)
 
-}
-
-sealed interface SideEffect {
-    data class Message(val message: String) : SideEffect
-    data class Error(val error: String) : SideEffect
-}

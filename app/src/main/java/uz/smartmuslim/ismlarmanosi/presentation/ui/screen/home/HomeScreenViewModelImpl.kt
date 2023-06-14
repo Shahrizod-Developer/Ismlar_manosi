@@ -19,32 +19,27 @@ import javax.inject.Inject
 class HomeScreenViewModelImpl @Inject constructor(
     private val useCase: HomeUseCase,
     private val navigation: AppNavigation
-) :ViewModel(), HomeScreenViewModel{
+) : ViewModel(), HomeScreenViewModel {
 
     private var boyNamesCount = 0
     private var girlNamesCount = 0
     override fun onEventDispatchers(intent: HomeIntent) = intent {
 
-        when(intent){
-            is HomeIntent.BoysNameCount -> {
-                viewModelScope.launch {
-                    useCase.getGirlNamesCount().collectLatest {
-                        intent.count = it
-                    }
-                }
+        viewModelScope.launch {
+            useCase.getGirlNamesCount().collectLatest {
+                HomeUiState(0, it)
             }
+        }
 
-            is HomeIntent.GirlsNameCount -> {
-                viewModelScope.launch {
-                    useCase.getGirlNamesCount().collectLatest {
-                        intent.count = it
-                    }
-                }
+        viewModelScope.launch {
+            useCase.getBoyNamesCount().collectLatest {
+                HomeUiState(it, 0)
             }
         }
 
     }
 
-    override val container: Container<HomeUiState, SideEffect> = container()
+    override val container: Container<HomeUiState, Any> =
+        container(HomeUiState())
 
 }
