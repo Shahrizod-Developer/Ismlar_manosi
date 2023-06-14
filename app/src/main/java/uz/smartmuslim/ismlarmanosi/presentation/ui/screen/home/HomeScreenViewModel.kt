@@ -4,17 +4,19 @@ import uz.smartmuslim.ismlarmanosi.utils.BaseViewModel
 
 interface HomeScreenViewModel : BaseViewModel<HomeIntent, HomeUiState, SideEffect>
 
-sealed class HomeIntent {
+sealed interface HomeIntent {
 
+    data class BoysNameCount(var count: Int) : HomeIntent
+
+    data class GirlsNameCount(var count: Int) : HomeIntent
 
 }
 
-data class HomeUiState(
-    val boyNameCount: Int = 0,
-    val girlNameCount: Int = 0
-)
+sealed interface HomeUiState {
 
-data class SideEffect(
-    val openWinGame: Boolean = false,
-    val openQuitGame: Boolean = false
-)
+}
+
+sealed interface SideEffect {
+    data class Message(val message: String) : SideEffect
+    data class Error(val error: String) : SideEffect
+}
