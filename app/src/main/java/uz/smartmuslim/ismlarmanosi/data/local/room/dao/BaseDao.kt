@@ -1,5 +1,6 @@
 package uz.smartmuslim.ismlarmanosi.data.local.room.dao
 
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Update
@@ -20,4 +21,7 @@ interface BaseDao<T> {
 
     @Update
     fun update(data: List<T>)
+
+    @Delete
+    fun delete(data: List<T>)
 }

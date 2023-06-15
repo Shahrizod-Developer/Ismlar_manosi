@@ -29,7 +29,6 @@ import uz.smartmuslim.ismlarmanosi.presentation.navigation.NavigationHandler
 import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.splash.SplashScreen
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.IsmlarManosiTheme
-import uz.smartmuslim.ismlarmanosi.service.EventService
 import javax.inject.Inject
 
 @Suppress("OPT_IN_IS_NOT_ENABLED")
@@ -43,8 +42,8 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("FlowOperatorInvokedInComposition", "CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, EventService::class.java)
-        this.startService(intent)
+//        val intent = Intent(this, EventService::class.java)
+//        this.startService(intent)
         setContent {
             IsmlarManosiTheme {
                 Navigator(screen = SplashScreen(),

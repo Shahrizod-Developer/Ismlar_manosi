@@ -28,13 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".service.EventService"
-            android:exported="false" />
+<!--        <service-->
+<!--            android:name=".service.EventService"-->
+<!--            android:exported="false" />-->
 
-        <receiver
-            android:name=".broadcast.EventBroadcast"
-            android:exported="false" />
+<!--        <receiver-->
+<!--            android:name=".broadcast.EventBroadcast"-->
+<!--            android:exported="false" />-->
     </application>
 
 </manifest>

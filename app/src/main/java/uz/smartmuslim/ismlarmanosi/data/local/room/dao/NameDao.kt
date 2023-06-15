@@ -15,11 +15,11 @@ interface NameDao : BaseDao<NameEntity> {
 
     @Query("Select * From name_entity")
     fun getAllName(): List<NameEntity>
-    @Query("Select * From name_entity Where gender = 1")
-    fun getAllBoyNames(): Flow<List<NameEntity>>
+    @Query("Select * From name_entity Where gender = 'MEN'")
+    fun getAllBoyNames(): List<NameEntity>
 
-    @Query("Select * From name_entity Where gender = 2")
-    fun getAllGirlNames(): Flow<List<NameEntity>>
+    @Query("Select * From name_entity Where gender = 'WOMEN'")
+    fun getAllGirlNames(): List<NameEntity>
 
     @Query("DELETE FROM name_entity")
     fun deleteAll()
