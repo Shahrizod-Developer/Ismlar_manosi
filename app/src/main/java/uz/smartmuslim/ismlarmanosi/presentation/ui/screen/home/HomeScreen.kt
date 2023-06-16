@@ -2,20 +2,29 @@ package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +40,8 @@ import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.smartmuslim.ismlarmanosi.R
+import uz.smartmuslim.ismlarmanosi.data.model.Menus
+import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Image_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
 
@@ -44,7 +55,10 @@ class HomeScreen : AndroidScreen() {
 }
 
 @Composable
-fun HomeScreenContent(uiState: HomeScreenContract.HomeUiState, onEventDispatchers: (HomeScreenContract.HomeIntent) -> Unit) {
+fun HomeScreenContent(
+    uiState: HomeScreenContract.HomeUiState,
+    onEventDispatchers: (HomeScreenContract.HomeIntent) -> Unit
+) {
 
 
     when (uiState) {
@@ -94,7 +108,8 @@ fun HomeScreenContent(uiState: HomeScreenContract.HomeUiState, onEventDispatcher
 
                     Box(
                         modifier = Modifier
-                            .size(width = 140.dp, height = 60.dp),
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
                         contentAlignment = Alignment.CenterEnd
                     ) {
                         Image(
@@ -120,6 +135,30 @@ fun HomeScreenContent(uiState: HomeScreenContract.HomeUiState, onEventDispatcher
                     }
                 }
 
+                val list = remember {
+                    listOf(
+                        Menus(
+                            R.drawable.splash,
+                            "Eng ko'p qidirilganlar",
+                            "Oxirgi 1 hafta ichidagi eng ko'p\nqidirilagn ismlar ni ko'rishinghiz mumkin",
+                            10
+                        ),
+
+                        Menus(
+                            R.drawable.splash,
+                            "Eng ko'p yoqqanlar",
+                            "Eng ko'p yoqtirilgan top \n100 ta ismlar ni ko'rishinghiz mumkin",
+                            10
+                        ),
+
+                        Menus(
+                            R.drawable.splash,
+                            "Alifbo bo'yicha",
+                            "Har bir harf uchun alifbo tartibida \ntartiblanganlar ismlarni ko'rishingiz mumkin",
+                            10
+                        )
+                    )
+                }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -205,8 +244,97 @@ fun HomeScreenContent(uiState: HomeScreenContract.HomeUiState, onEventDispatcher
                     }
                 }
 
+                LazyColumn(
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    items(
+                        items = list,
+                        itemContent = {
+                            MenuItem(menus = it)
+                        })
+                }
             }
         }
+    }
+}
 
+@Composable
+fun MenuItem(menus: Menus) {
+
+    Card(
+        modifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .fillMaxWidth()
+            .height(150.dp),
+        elevation = 2.dp,
+        backgroundColor = Color.White,
+        shape = RoundedCornerShape(corner = CornerSize(16.dp))
+    ) {
+
+        Row {
+            Image(
+                painter = painterResource(menus.image),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(vertical = 25.dp)
+                    .width(120.dp),
+                contentScale = ContentScale.FillHeight
+            )
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically)
+            ) {
+                Text(
+                    text = menus.title,
+                    Modifier
+                        .padding(top = 10.dp),
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily(Font((R.font.geometria_medium))),
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    text = menus.desc,
+                    Modifier
+                        .padding(top = 10.dp),
+                    fontSize = 12.sp,
+                    fontFamily = FontFamily(Font((R.font.geometria_medium))),
+                    color = Color.Black,
+                    fontWeight = FontWeight.Normal
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.BottomEnd
+                ) {
+
+                    Card(
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(100.dp),
+                        elevation = 2.dp,
+                        backgroundColor = Bg_Color,
+                        shape = RoundedCornerShape(corner = CornerSize(26.dp))
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = menus.count.toString() + " ta ",
+                                fontSize = 18.sp,
+                                fontFamily = FontFamily(Font((R.font.geometria_medium))),
+                                color = Color.White,
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }

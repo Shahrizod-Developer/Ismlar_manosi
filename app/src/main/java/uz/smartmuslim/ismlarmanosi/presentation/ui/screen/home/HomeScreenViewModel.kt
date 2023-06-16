@@ -28,12 +28,12 @@ class HomeScreenViewModel @Inject constructor(
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            delay(2000)
+
             useCase.childrenNamesCount().collectLatest {
                 Log.d("TTT", "viewmodel names = " + it)
                 intent {
                     reduce {
-                        HomeScreenContract.HomeUiState.Counts().copy(
+                        HomeScreenContract.HomeUiState.Counts(
                             girlNameCount = it.girlNamesCount,
                             boyNameCount = it.boyNamesCount
                         )
