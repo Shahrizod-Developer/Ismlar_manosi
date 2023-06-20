@@ -37,6 +37,9 @@ data class NameResponse(
     @SerializedName("rukn")
     val rukn: String? = null,
 
+    @SerializedName("offerCount")
+    val offerCount: Int? = null,
+
     @SerializedName("deleted")
     val deleted: Boolean = false,
 
@@ -63,6 +66,7 @@ data class NameResponse(
             englishName,
             englishDesc,
             rukn,
+            offerCount,
             deleted,
             createdDate,
             lastModifiedDate

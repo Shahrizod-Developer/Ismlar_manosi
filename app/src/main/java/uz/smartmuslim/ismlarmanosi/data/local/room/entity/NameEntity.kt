@@ -3,7 +3,10 @@ package uz.smartmuslim.ismlarmanosi.data.local.room.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import uz.smartmuslim.ismlarmanosi.data.model.Gender
+import uz.smartmuslim.ismlarmanosi.data.model.NameData
+
 @Entity(tableName = "name_entity")
 data class NameEntity(
     @PrimaryKey(autoGenerate = false)
@@ -26,9 +29,25 @@ data class NameEntity(
     @ColumnInfo(name = "english_desc")
     val englishDesc: String?,
     val rukn: String?,
+    @ColumnInfo("offer_count")
+    val offerCount: Int? = null,
     val deleted: Boolean,
     @ColumnInfo(name = "created_date")
     val createdDate: String?,
     @ColumnInfo(name = "last_modified_date")
     val lastModifiedDate: String?
-)
+) {
+    fun toData() = NameData(
+        id,
+        gender,
+        seenCount,
+        likeCount,
+        latinName!!,
+        latinDesc!!,
+        krillName!!,
+        krillDesc!!,
+        englishName!!,
+        englishDesc!!,
+        rukn!!
+    )
+}

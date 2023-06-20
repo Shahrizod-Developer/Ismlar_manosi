@@ -11,6 +11,7 @@ import uz.smartmuslim.ismlarmanosi.data.local.room.entity.NameEntity
 import uz.smartmuslim.ismlarmanosi.data.local.shp.MySharedPreference
 import uz.smartmuslim.ismlarmanosi.data.model.ChildrenCount
 import uz.smartmuslim.ismlarmanosi.data.model.Gender
+import uz.smartmuslim.ismlarmanosi.data.model.NameData
 import uz.smartmuslim.ismlarmanosi.data.remote.api.NameApi
 import uz.smartmuslim.ismlarmanosi.data.repository.name.NameRepository
 import javax.inject.Inject
@@ -23,8 +24,8 @@ class NameRepositoryImpl @Inject constructor(
 
     override fun childrenNamesCount(): Flow<ChildrenCount> = flow {
         val childrenCount = ChildrenCount(0, 0)
-        childrenCount.boyNamesCount = dao.getAllBoyNames().size
-        childrenCount.girlNamesCount = dao.getAllGirlNames().size
+        childrenCount.boyNamesCount = dao.getAllBoysName().size
+        childrenCount.girlNamesCount = dao.getAllGirlsName().size
         emit(childrenCount)
     }
 
@@ -104,5 +105,15 @@ class NameRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getAllBoysName(): Flow<List<NameData>> = flow{
+        dao.getAllBoyNames().map {
+            emit(it.map { it.toData() })
+        }
+    }
 
+    override fun getAllGirlsName(): Flow<List<NameData>> = flow{
+        dao.getAllGirlNames().map {
+            emit(it.map { it.toData() })
+        }
+    }
 }
