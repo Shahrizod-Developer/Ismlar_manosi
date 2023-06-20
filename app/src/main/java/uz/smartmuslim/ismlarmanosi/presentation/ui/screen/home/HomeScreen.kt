@@ -138,23 +138,23 @@ fun HomeScreenContent(
                 val list = remember {
                     listOf(
                         Menus(
-                            R.drawable.splash,
+                            R.drawable.search,
                             "Eng ko'p qidirilganlar",
-                            "Oxirgi 1 hafta ichidagi eng ko'p\nqidirilagn ismlar ni ko'rishinghiz mumkin",
+                            "Oxirgi 1 hafta ichidagi eng ko'p qidirilagn ismlar ni ko'rishinghiz mumkin",
                             10
                         ),
 
                         Menus(
-                            R.drawable.splash,
+                            R.drawable.top,
                             "Eng ko'p yoqqanlar",
-                            "Eng ko'p yoqtirilgan top \n100 ta ismlar ni ko'rishinghiz mumkin",
+                            "Eng ko'p yoqtirilgan top 100 ta ismlar ni ko'rishinghiz mumkin",
                             10
                         ),
 
                         Menus(
-                            R.drawable.splash,
+                            R.drawable.abc,
                             "Alifbo bo'yicha",
-                            "Har bir harf uchun alifbo tartibida \ntartiblanganlar ismlarni ko'rishingiz mumkin",
+                            "Har bir harf uchun alifbo tartibida tartiblanganlar ismlarni ko'rishingiz mumkin",
                             10
                         )
                     )
@@ -265,10 +265,11 @@ fun MenuItem(menus: Menus) {
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .fillMaxWidth()
-            .height(150.dp),
+            .height(150.dp)
+            .clip(RoundedCornerShape(corner = CornerSize(16.dp)))
+            .clickable(onClick = {}),
         elevation = 2.dp,
-        backgroundColor = Color.White,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp))
+        backgroundColor = Color.White
     ) {
 
         Row {
@@ -276,11 +277,14 @@ fun MenuItem(menus: Menus) {
                 painter = painterResource(menus.image),
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(vertical = 25.dp)
-                    .width(120.dp),
-                contentScale = ContentScale.FillHeight
+                    .padding(start = 10.dp)
+                    .width(80.dp)
+                    .align(Alignment.CenterVertically)
+                    .height(100.dp)
+                    .clip(RoundedCornerShape(corner = CornerSize(10.dp))),
+                contentScale = ContentScale.Crop
             )
+
             Column(
                 modifier = Modifier
                     .padding(16.dp)
@@ -291,7 +295,7 @@ fun MenuItem(menus: Menus) {
                     text = menus.title,
                     Modifier
                         .padding(top = 10.dp),
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontFamily = FontFamily(Font((R.font.geometria_medium))),
                     color = Color.Black,
                     fontWeight = FontWeight.Bold
@@ -315,8 +319,10 @@ fun MenuItem(menus: Menus) {
 
                     Card(
                         modifier = Modifier
-                            .height(40.dp)
-                            .width(100.dp),
+                            .height(30.dp)
+                            .width(100.dp)
+                            .clip(RoundedCornerShape(corner = CornerSize(20.dp)))
+                            .clickable(onClick = {}),
                         elevation = 2.dp,
                         backgroundColor = Bg_Color,
                         shape = RoundedCornerShape(corner = CornerSize(26.dp))
@@ -327,7 +333,7 @@ fun MenuItem(menus: Menus) {
                         ) {
                             Text(
                                 text = menus.count.toString() + " ta ",
-                                fontSize = 18.sp,
+                                fontSize = 14.sp,
                                 fontFamily = FontFamily(Font((R.font.geometria_medium))),
                                 color = Color.White,
                             )
