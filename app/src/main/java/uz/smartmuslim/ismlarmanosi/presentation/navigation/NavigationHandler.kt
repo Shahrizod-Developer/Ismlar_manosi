@@ -6,5 +6,6 @@ import kotlinx.coroutines.flow.Flow
 typealias NavigationArgs = Navigator.() -> Unit
 
 interface NavigationHandler {
-    val navStack: Flow<NavigationArgs>
+    val navigationStack: Flow<NavigationArgs>
 }
+

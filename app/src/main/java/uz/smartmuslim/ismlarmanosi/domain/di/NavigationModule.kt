@@ -3,18 +3,19 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import uz.smartmuslim.ismlarmanosi.presentation.navigation.AppNavigation
+import uz.smartmuslim.ismlarmanosi.presentation.navigation.AppNavigator
 import uz.smartmuslim.ismlarmanosi.presentation.navigation.NavigationDispatcher
 import uz.smartmuslim.ismlarmanosi.presentation.navigation.NavigationHandler
 
-
 @Module
 @InstallIn(SingletonComponent::class)
-interface NavigatorModule {
+interface NavigationModule {
 
     @Binds
-    fun appNavigator(dispatcher: NavigationDispatcher): AppNavigation
+    fun bindAppNavigator(impl: NavigationDispatcher): AppNavigator
 
     @Binds
-    fun navigationHandler(dispatcher: NavigationDispatcher): NavigationHandler
+    fun bindNavigationHandler(impl: NavigationDispatcher): NavigationHandler
 }
+
+

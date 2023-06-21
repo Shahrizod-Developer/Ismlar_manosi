@@ -2,8 +2,8 @@ package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home
 
 import org.orbitmvi.orbit.ContainerHost
 
-sealed class HomeScreenContract {
-    interface ViewModel:ContainerHost<HomeUiState, HomeSideEffect>{
+interface HomeScreenContract {
+    interface ViewModel : ContainerHost<HomeUiState, HomeSideEffect> {
         fun onEventDispatcher(intent: HomeIntent)
     }
 
@@ -15,10 +15,11 @@ sealed class HomeScreenContract {
     }
 
     sealed interface HomeSideEffect {
-        data class Toast(val message: String): HomeSideEffect
+        data class Toast(val message: String) : HomeSideEffect
     }
 
     sealed interface HomeIntent {
 
+        data class OpenNamesScreen(val status: Int) : HomeIntent
     }
 }

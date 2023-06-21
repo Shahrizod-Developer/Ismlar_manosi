@@ -1,10 +1,7 @@
 package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.main
 
-import uz.smartmuslim.ismlarmanosi.utils.AppViewModel
 
 
-interface MainViewModel : AppViewModel<MainIntent, MainUiState, MySideEffect> {
-}
 
 interface MainScreenViewModel {
 }

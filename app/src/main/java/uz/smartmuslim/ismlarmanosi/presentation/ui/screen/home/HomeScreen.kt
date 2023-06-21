@@ -2,7 +2,6 @@ package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,15 +28,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.androidx.AndroidScreen
+import cafe.adriel.voyager.hilt.getScreenModel
 import cafe.adriel.voyager.hilt.getViewModel
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabOptions
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.smartmuslim.ismlarmanosi.R
 import uz.smartmuslim.ismlarmanosi.data.model.Menus
@@ -45,12 +50,29 @@ import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Image_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
 
-class HomeScreen : AndroidScreen() {
+object HomeScreen : Tab {
+
+    override val options: TabOptions
+        @Composable
+        get() {
+            val title = "Uy"
+            val icon =
+                rememberVectorPainter(image = ImageVector.vectorResource(id = R.drawable.baseline_home_24))
+
+            return remember {
+                TabOptions(
+                    index = 0u,
+                    title = title,
+                    icon = icon
+                )
+            }
+        }
+
     @Composable
     override fun Content() {
-        val viewModel: HomeScreenContract.ViewModel = getViewModel<HomeScreenViewModel>()
-        val uiState = viewModel.collectAsState().value
-        HomeScreenContent(uiState, viewModel::onEventDispatcher)
+        val screenModel: HomeScreenContract.ViewModel = getScreenModel<HomeModel>()
+        val uiState = screenModel.collectAsState().value
+        HomeScreenContent(uiState, screenModel::onEventDispatcher)
     }
 }
 
@@ -167,27 +189,30 @@ fun HomeScreenContent(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Column(
-                        modifier =
-                        Modifier
+                        modifier = Modifier
                             .size(width = 180.dp, height = 220.dp)
                             .padding(20.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .background(Color.White)
-                            .clickable(onClick = {}),
+                            .clickable(onClick = {
+                                onEventDispatchers.invoke(
+                                    HomeScreenContract.HomeIntent.OpenNamesScreen(
+                                        1
+                                    )
+                                )
+                            }),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
                         Image(
                             painter = painterResource(R.drawable.boy),
                             contentDescription = null,
-                            modifier = Modifier
-                                .size(60.dp),
+                            modifier = Modifier.size(60.dp),
                             contentScale = ContentScale.FillHeight
                         )
                         Text(
                             text = "O'g'il bolalar",
-                            Modifier
-                                .padding(top = 10.dp),
+                            Modifier.padding(top = 10.dp),
                             fontSize = 18.sp,
                             fontFamily = FontFamily(Font((R.font.geometria_medium))),
                             color = Color.Black,
@@ -195,8 +220,7 @@ fun HomeScreenContent(
 
                         Text(
                             text = uiState.boyNameCount.toString(),
-                            Modifier
-                                .padding(top = 20.dp),
+                            Modifier.padding(top = 20.dp),
                             fontSize = 18.sp,
                             fontFamily = FontFamily(Font((R.font.geometria_medium))),
                             color = Color.Black,
@@ -211,7 +235,13 @@ fun HomeScreenContent(
                             .padding(20.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .background(Color.White)
-                            .clickable(onClick = {}),
+                            .clickable(onClick = {
+                                onEventDispatchers.invoke(
+                                    HomeScreenContract.HomeIntent.OpenNamesScreen(
+                                        2
+                                    )
+                                )
+                            }),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
@@ -219,14 +249,12 @@ fun HomeScreenContent(
                         Image(
                             painter = painterResource(R.drawable.girl),
                             contentDescription = null,
-                            modifier = Modifier
-                                .size(60.dp),
+                            modifier = Modifier.size(60.dp),
                             contentScale = ContentScale.FillHeight
                         )
                         Text(
                             text = "Qiz bolalar",
-                            Modifier
-                                .padding(top = 10.dp),
+                            Modifier.padding(top = 10.dp),
                             fontSize = 18.sp,
                             fontFamily = FontFamily(Font((R.font.geometria_medium))),
                             color = Color.Black,
@@ -234,8 +262,7 @@ fun HomeScreenContent(
 
                         Text(
                             text = uiState.girlNameCount.toString(),
-                            Modifier
-                                .padding(top = 20.dp),
+                            Modifier.padding(top = 20.dp),
                             fontSize = 18.sp,
                             fontFamily = FontFamily(Font((R.font.geometria_medium))),
                             color = Color.Black,
@@ -247,11 +274,9 @@ fun HomeScreenContent(
                 LazyColumn(
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
                 ) {
-                    items(
-                        items = list,
-                        itemContent = {
-                            MenuItem(menus = it)
-                        })
+                    items(items = list, itemContent = {
+                        MenuItem(menus = it)
+                    })
                 }
             }
         }
@@ -267,9 +292,7 @@ fun MenuItem(menus: Menus) {
             .fillMaxWidth()
             .height(150.dp)
             .clip(RoundedCornerShape(corner = CornerSize(16.dp)))
-            .clickable(onClick = {}),
-        elevation = 2.dp,
-        backgroundColor = Color.White
+            .clickable(onClick = {}), elevation = 2.dp, backgroundColor = Color.White
     ) {
 
         Row {
@@ -293,8 +316,7 @@ fun MenuItem(menus: Menus) {
             ) {
                 Text(
                     text = menus.title,
-                    Modifier
-                        .padding(top = 10.dp),
+                    Modifier.padding(top = 10.dp),
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font((R.font.geometria_medium))),
                     color = Color.Black,
@@ -303,8 +325,7 @@ fun MenuItem(menus: Menus) {
 
                 Text(
                     text = menus.desc,
-                    Modifier
-                        .padding(top = 10.dp),
+                    Modifier.padding(top = 10.dp),
                     fontSize = 12.sp,
                     fontFamily = FontFamily(Font((R.font.geometria_medium))),
                     color = Color.Black,
@@ -328,8 +349,7 @@ fun MenuItem(menus: Menus) {
                         shape = RoundedCornerShape(corner = CornerSize(26.dp))
                     ) {
                         Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
+                            modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                         ) {
                             Text(
                                 text = menus.count.toString() + " ta ",

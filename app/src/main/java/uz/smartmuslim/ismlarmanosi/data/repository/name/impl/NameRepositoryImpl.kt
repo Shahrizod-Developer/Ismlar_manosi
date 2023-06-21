@@ -1,9 +1,11 @@
 package uz.smartmuslim.ismlarmanosi.data.repository.name.impl
 
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import uz.smartmuslim.ismlarmanosi.data.local.room.dao.NameDao
@@ -27,7 +29,7 @@ class NameRepositoryImpl @Inject constructor(
         childrenCount.boyNamesCount = dao.getAllBoysName().size
         childrenCount.girlNamesCount = dao.getAllGirlsName().size
         emit(childrenCount)
-    }
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun syncNames() {
         try {
@@ -108,12 +110,12 @@ class NameRepositoryImpl @Inject constructor(
     override fun getAllBoysName(): Flow<List<NameData>> = flow{
         dao.getAllBoyNames().map {
             emit(it.map { it.toData() })
-        }
-    }
+        }.collect()
+    }.flowOn(Dispatchers.IO)
 
     override fun getAllGirlsName(): Flow<List<NameData>> = flow{
         dao.getAllGirlNames().map {
             emit(it.map { it.toData() })
-        }
-    }
+        }.collect()
+    }.flowOn(Dispatchers.IO)
 }

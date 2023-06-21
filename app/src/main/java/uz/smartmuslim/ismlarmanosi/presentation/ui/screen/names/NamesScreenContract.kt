@@ -3,16 +3,17 @@ package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.names
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.androidx.AndroidScreen
 import org.orbitmvi.orbit.ContainerHost
+import uz.smartmuslim.ismlarmanosi.data.model.NameData
 
-sealed class NamesScreenContract {
-    interface ViewModel: ContainerHost<NamesUiState, NamesSideEffect> {
+interface NamesScreenContract {
+    interface Model: ContainerHost<NamesUiState, NamesSideEffect> {
         fun onEventDispatcher(intent: NamesIntent)
     }
 
     sealed interface NamesUiState {
-        data class Counts(
-            val boyNameCount: Int = 0,
-            val girlNameCount: Int = 0
+        data class Names(
+           val boysNameList:List<NameData> = emptyList(),
+           val girlsNameList:List<NameData> = emptyList()
         ) : NamesUiState
     }
 
@@ -21,6 +22,6 @@ sealed class NamesScreenContract {
     }
 
     sealed interface NamesIntent {
-
+        data class NameDetail(val nameData: NameData):NamesIntent
     }
 }

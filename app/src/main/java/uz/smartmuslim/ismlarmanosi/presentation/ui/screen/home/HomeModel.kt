@@ -1,36 +1,36 @@
 package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.coroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.orbitmvi.orbit.container
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import uz.smartmuslim.ismlarmanosi.domain.usecase.HomeUseCase
+import uz.smartmuslim.ismlarmanosi.presentation.direction.HomeScreenDirection
+import uz.smartmuslim.ismlarmanosi.presentation.direction.MainScreenDirection
 import javax.inject.Inject
 
 
-@HiltViewModel
-class HomeScreenViewModel @Inject constructor(
+class HomeModel @Inject constructor(
     private val useCase: HomeUseCase,
-) : ViewModel(), HomeScreenContract.ViewModel {
+    private val direction: MainScreenDirection
+) : ScreenModel, HomeScreenContract.ViewModel {
 
     init {
 
-        viewModelScope.launch(Dispatchers.IO) {
-            Log.d("TTT", "syncNames")
+        coroutineScope.launch(Dispatchers.IO) {
             useCase.syncNames()
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
-
+        coroutineScope.launch {
             useCase.childrenNamesCount().collectLatest {
-                Log.d("TTT", "viewmodel names = " + it)
                 intent {
                     reduce {
                         HomeScreenContract.HomeUiState.Counts(
@@ -45,10 +45,16 @@ class HomeScreenViewModel @Inject constructor(
 
     override fun onEventDispatcher(intent: HomeScreenContract.HomeIntent) {
 
+        when (intent) {
+
+            is HomeScreenContract.HomeIntent.OpenNamesScreen -> {
+                intent { direction.openNamesScreen(intent.status) }
+            }
+        }
     }
 
     override val container =
-        container<HomeScreenContract.HomeUiState, HomeScreenContract.HomeSideEffect>(
+        coroutineScope.container<HomeScreenContract.HomeUiState, HomeScreenContract.HomeSideEffect>(
             HomeScreenContract.HomeUiState.Counts()
         )
 
