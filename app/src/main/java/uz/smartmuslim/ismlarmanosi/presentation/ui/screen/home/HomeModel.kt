@@ -13,7 +13,6 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import uz.smartmuslim.ismlarmanosi.domain.usecase.HomeUseCase
-import uz.smartmuslim.ismlarmanosi.presentation.direction.HomeScreenDirection
 import uz.smartmuslim.ismlarmanosi.presentation.direction.MainScreenDirection
 import javax.inject.Inject
 
@@ -21,7 +20,7 @@ import javax.inject.Inject
 class HomeModel @Inject constructor(
     private val useCase: HomeUseCase,
     private val direction: MainScreenDirection
-) : ScreenModel, HomeScreenContract.ViewModel {
+) : ScreenModel, HomePageContract.ViewModel {
 
     init {
 
@@ -33,7 +32,7 @@ class HomeModel @Inject constructor(
             useCase.childrenNamesCount().collectLatest {
                 intent {
                     reduce {
-                        HomeScreenContract.HomeUiState.Counts(
+                        HomePageContract.HomeUiState.Counts(
                             girlNameCount = it.girlNamesCount,
                             boyNameCount = it.boyNamesCount
                         )
@@ -43,19 +42,19 @@ class HomeModel @Inject constructor(
         }
     }
 
-    override fun onEventDispatcher(intent: HomeScreenContract.HomeIntent) {
+    override fun onEventDispatcher(intent: HomePageContract.HomeIntent) {
 
         when (intent) {
 
-            is HomeScreenContract.HomeIntent.OpenNamesScreen -> {
+            is HomePageContract.HomeIntent.OpenNamesScreen -> {
                 intent { direction.openNamesScreen(intent.status) }
             }
         }
     }
 
     override val container =
-        coroutineScope.container<HomeScreenContract.HomeUiState, HomeScreenContract.HomeSideEffect>(
-            HomeScreenContract.HomeUiState.Counts()
+        coroutineScope.container<HomePageContract.HomeUiState, HomePageContract.HomeSideEffect>(
+            HomePageContract.HomeUiState.Counts()
         )
 
 }

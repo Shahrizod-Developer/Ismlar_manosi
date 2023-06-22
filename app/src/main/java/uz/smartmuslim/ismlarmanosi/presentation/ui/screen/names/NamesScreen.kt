@@ -33,9 +33,6 @@ import cafe.adriel.voyager.hilt.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.smartmuslim.ismlarmanosi.R
 import uz.smartmuslim.ismlarmanosi.data.model.NameData
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home.HomeModel
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home.HomeScreenContent
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home.HomeScreenContract
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Search_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Stroke_Color
@@ -48,10 +45,14 @@ class NamesScreen(private val status: Int) : AndroidScreen() {
 
         val screenModel: NamesScreenContract.Model = getScreenModel<NamesModel>()
         val uiState = screenModel.collectAsState().value
-        NamesScreenContent(uiState, screenModel::onEventDispatcher, status)
-        myLog("MainScreen -> $this")
-        myLog("MainScreen screenModel -> $screenModel")
 
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Bg_Main_Color),
+        ) {
+            NamesScreenContent(uiState, screenModel::onEventDispatcher, status)
+        }
     }
 }
 
@@ -61,7 +62,6 @@ fun NamesScreenContent(
     onEventDispatcher: (NamesScreenContract.NamesIntent) -> Unit,
     status: Int
 ) {
-
     when (uiState) {
         is NamesScreenContract.NamesUiState.Names -> {
 
@@ -152,11 +152,10 @@ fun NamesScreenContent(
                 ) {
 
                     if (status == 1) {
-                        Log.d("TTT","list = " + uiState.boysNameList)
                         items(items = uiState.boysNameList, itemContent = {
                             NameItem(nameData = it)
                         })
-                    } else {
+                    } else if (status == 2) {
                         items(items = uiState.girlsNameList, itemContent = {
                             NameItem(nameData = it)
                         })

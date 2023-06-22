@@ -18,31 +18,25 @@ import javax.inject.Inject
 
 
 class NamesModel @Inject constructor(
-    private val useCase: NamesUseCase
+    private val useCase: NamesUseCase,
 ) : NamesScreenContract.Model, ScreenModel {
 
+
     init {
-        getBoysName()
-        getGirlsName()
+            getBoysName()
+            getGirlsName()
     }
 
-    override fun onEventDispatcher(intent: NamesScreenContract.NamesIntent) {
-
-    }
-
+    override fun onEventDispatcher(intent: NamesScreenContract.NamesIntent) {}
     override val container =
         coroutineScope.container<NamesScreenContract.NamesUiState, NamesScreenContract.NamesSideEffect>(
             NamesScreenContract.NamesUiState.Names()
         )
-
-
     private fun getBoysName() {
-
+        Log.d("TTT", "boy + ")
         coroutineScope.launch {
-
             intent {
                 useCase.getAllBoysName().collectLatest {
-                    Log.d("TTT","boynames" + it.toString())
                     reduce {
                         NamesScreenContract.NamesUiState.Names(boysNameList = it)
                     }
@@ -52,10 +46,10 @@ class NamesModel @Inject constructor(
     }
 
     private fun getGirlsName() {
+        Log.d("TTT", "girl + ")
         coroutineScope.launch {
             intent {
                 useCase.getAllGirlsName().collectLatest {
-                    Log.d("TTT","girlnames" + it.toString())
                     reduce {
                         NamesScreenContract.NamesUiState.Names(girlsNameList = it)
                     }
@@ -63,4 +57,5 @@ class NamesModel @Inject constructor(
             }
         }
     }
+
 }

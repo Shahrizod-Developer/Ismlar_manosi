@@ -11,9 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.smartmuslim.ismlarmanosi.presentation.navigation.NavigationHandler
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home.HomeScreen
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.main.MainScreen
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.names.NamesScreen
 import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.splash.SplashScreen
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.IsmlarManosiTheme
 import javax.inject.Inject

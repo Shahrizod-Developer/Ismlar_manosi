@@ -16,7 +16,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import uz.smartmuslim.ismlarmanosi.R
@@ -39,22 +38,23 @@ object ArticlePage : Tab {
                 )
             }
         }
-        @Composable
-        override fun Content() {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Green)
-                    .wrapContentSize(Alignment.Center)
-            ) {
-                Text(
-                    text = "Article View",
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    textAlign = TextAlign.Center,
-                    fontSize = 25.sp
-                )
-            }
+
+    @Composable
+    override fun Content() {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Blue)
+                .wrapContentSize(Alignment.Center)
+        ) {
+            Text(
+                text = "Article View",
+                fontWeight = FontWeight.Bold,
+                color = Color.Magenta,
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                textAlign = TextAlign.Center,
+                fontSize = 25.sp
+            )
         }
+    }
 }

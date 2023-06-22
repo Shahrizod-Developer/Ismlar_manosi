@@ -2,41 +2,33 @@ package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.main
 
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import cafe.adriel.voyager.androidx.AndroidScreen
-import cafe.adriel.voyager.hilt.getScreenModel
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.article.ArticleScreen
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.favorite.FavoriteScreen
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home.HomeScreen
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.search.SearchScreen
-import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.settings.SettingsScreen
-import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
+import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.article.ArticlePage
+import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.favorite.FavoritePage
+import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home.HomePage
+import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.search.SearchPage
+import uz.smartmuslim.ismlarmanosi.presentation.ui.screen.settings.SettingsPage
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.IsmlarManosiTheme
 
 
@@ -54,123 +46,34 @@ class MainScreen : AndroidScreen() {
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 private fun MainContent() {
-    TabNavigator(tab = ActivePage) {
+    TabNavigator(tab = HomePage) {
         Scaffold(
             content = {
                 CurrentTab()
             },
             bottomBar = {
-                BottomNavigation {
-                    TabNavigatorItem(tab = ActivePage)
-                    TabNavigatorItem(tab = DeliveredPage)
-                    TabNavigatorItem(tab = ProfilePage)
+                Box(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .fillMaxWidth()
+                ) {
+                    BottomNavigation(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                            .background(Color.White),
+                        contentColor = Color.White
+                    ) {
+                        TabNavigatorItem(tab = HomePage)
+                        TabNavigatorItem(tab = SearchPage)
+                        TabNavigatorItem(tab = ArticlePage)
+                        TabNavigatorItem(tab = FavoritePage)
+                        TabNavigatorItem(tab = SettingsPage)
+                    }
                 }
             }
         )
     }
 }
-
-@Composable
-@Preview(showBackground = true)
-private fun MainContentPreview() {
-    IsmlarManosiTheme {
-        MainContent(uiState = MainContract.UIState.InitState) {}
-    }
-}
-
-
-//
-//class MainScreen : AndroidScreen() {
-//    @Composable
-//    override fun Content() {
-//        val navController = rememberNavController()
-//        MainScreenContent(navController = navController)
-//    }
-//}
-//
-//@Composable
-//fun MainScreenContent(navController: NavController) {
-//    Scaffold(
-//        bottomBar = { BottomNavigationBar(navController) },
-//        content = { padding ->
-//            Box(modifier = Modifier.padding(padding)) {
-//                Navigation(navController = navController as NavHostController)
-//            }
-//        },
-//        backgroundColor = Color.White // Set background color to avoid the white flashing when you switch between screens
-//    )
-//}
-//
-//@Composable
-//fun Navigation(navController: NavHostController) {
-//
-//    NavHost(navController, startDestination = NavigationItem.Home.route) {
-//        composable(NavigationItem.Home.route) {
-//            HomeScreen().Content()
-//        }
-//        composable(NavigationItem.Search.route) {
-//            SearchScreen().Content()
-//        }
-//        composable(NavigationItem.Article.route) {
-//            ArticleScreen().Content()
-//        }
-//        composable(NavigationItem.Favorite.route) {
-//            FavoriteScreen().Content()
-//        }
-//        composable(NavigationItem.Settings.route) {
-//            SettingsScreen().Content()
-//        }
-//    }
-//}
-//
-//@Composable
-//fun BottomNavigationBar(navController: NavController) {
-//
-//    val items = listOf(
-//        NavigationItem.Home,
-//        NavigationItem.Search,
-//        NavigationItem.Article,
-//        NavigationItem.Favorite,
-//        NavigationItem.Settings
-//    )
-//
-//    BottomNavigation(
-//        backgroundColor = Bg_Main_Color,
-//        contentColor = Color.Green
-//    ) {
-//        val navBackStackEntry by navController.currentBackStackEntryAsState()
-//        val currentRoute = navBackStackEntry?.destination?.route
-//        items.forEach { item ->
-//            BottomNavigationItem(
-//                icon = {
-//                    Icon(
-//                        painterResource(id = item.icon),
-//                        contentDescription = item.title,
-//                        modifier = Modifier.size(24.dp)
-//                    )
-//                },
-//                label = {
-//                    Text(
-//                        text = item.title,
-//                        fontSize = 12.sp
-//                    )
-//                },
-//                selectedContentColor = Color.Blue,
-//                unselectedContentColor = Color.DarkGray,
-//                alwaysShowLabel = true,
-//                selected = currentRoute == item.route,
-//                onClick = {
-//                    navController.navigate(item.route) {
-//                        // popUpTo() is not needed in this case
-//                        launchSingleTop = true
-//                        restoreState = true
-//                    }
-//                }
-//            )
-//        }
-//    }
-//}
-
 
 @Composable
 fun RowScope.TabNavigatorItem(tab: Tab) {
@@ -183,7 +86,7 @@ fun RowScope.TabNavigatorItem(tab: Tab) {
             androidx.compose.material.Text(
                 text = tab.options.title,
                 modifier = Modifier.padding(vertical = 8.dp),
-                fontSize = 12.sp
+                fontSize = 10.sp
             )
         },
         icon = { Icon(painter = tab.options.icon!!, contentDescription = tab.options.title) }

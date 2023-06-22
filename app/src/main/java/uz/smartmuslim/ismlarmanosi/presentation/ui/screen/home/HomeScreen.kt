@@ -50,7 +50,7 @@ import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Image_Color
 import uz.smartmuslim.ismlarmanosi.presentation.ui.theme.Bg_Main_Color
 
-object HomeScreen : Tab {
+object HomePage : Tab {
 
     override val options: TabOptions
         @Composable
@@ -70,24 +70,25 @@ object HomeScreen : Tab {
 
     @Composable
     override fun Content() {
-        val screenModel: HomeScreenContract.ViewModel = getScreenModel<HomeModel>()
+        val screenModel: HomePageContract.ViewModel = getScreenModel<HomeModel>()
         val uiState = screenModel.collectAsState().value
-        HomeScreenContent(uiState, screenModel::onEventDispatcher)
+        HomePageContent(uiState, screenModel::onEventDispatcher)
     }
 }
 
 @Composable
-fun HomeScreenContent(
-    uiState: HomeScreenContract.HomeUiState,
-    onEventDispatchers: (HomeScreenContract.HomeIntent) -> Unit
+fun HomePageContent(
+    uiState: HomePageContract.HomeUiState,
+    onEventDispatchers: (HomePageContract.HomeIntent) -> Unit
 ) {
 
 
     when (uiState) {
-        is HomeScreenContract.HomeUiState.Counts -> {
+        is HomePageContract.HomeUiState.Counts -> {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(bottom = 60.dp)
                     .background(Bg_Main_Color)
             ) {
 
@@ -196,7 +197,7 @@ fun HomeScreenContent(
                             .background(Color.White)
                             .clickable(onClick = {
                                 onEventDispatchers.invoke(
-                                    HomeScreenContract.HomeIntent.OpenNamesScreen(
+                                    HomePageContract.HomeIntent.OpenNamesScreen(
                                         1
                                     )
                                 )
@@ -237,7 +238,7 @@ fun HomeScreenContent(
                             .background(Color.White)
                             .clickable(onClick = {
                                 onEventDispatchers.invoke(
-                                    HomeScreenContract.HomeIntent.OpenNamesScreen(
+                                    HomePageContract.HomeIntent.OpenNamesScreen(
                                         2
                                     )
                                 )

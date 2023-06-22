@@ -2,7 +2,7 @@ package uz.smartmuslim.ismlarmanosi.presentation.ui.screen.home
 
 import org.orbitmvi.orbit.ContainerHost
 
-interface HomeScreenContract {
+interface HomePageContract {
     interface ViewModel : ContainerHost<HomeUiState, HomeSideEffect> {
         fun onEventDispatcher(intent: HomeIntent)
     }

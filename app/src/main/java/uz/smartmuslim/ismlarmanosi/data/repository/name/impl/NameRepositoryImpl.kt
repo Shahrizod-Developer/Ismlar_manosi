@@ -13,6 +13,7 @@ import uz.smartmuslim.ismlarmanosi.data.local.room.entity.NameEntity
 import uz.smartmuslim.ismlarmanosi.data.local.shp.MySharedPreference
 import uz.smartmuslim.ismlarmanosi.data.model.ChildrenCount
 import uz.smartmuslim.ismlarmanosi.data.model.Gender
+import uz.smartmuslim.ismlarmanosi.data.model.ListData
 import uz.smartmuslim.ismlarmanosi.data.model.NameData
 import uz.smartmuslim.ismlarmanosi.data.remote.api.NameApi
 import uz.smartmuslim.ismlarmanosi.data.repository.name.NameRepository
@@ -107,6 +108,7 @@ class NameRepositoryImpl @Inject constructor(
         }
     }
 
+
     override fun getAllBoysName(): Flow<List<NameData>> = flow{
         dao.getAllBoyNames().map {
             emit(it.map { it.toData() })
@@ -118,4 +120,5 @@ class NameRepositoryImpl @Inject constructor(
             emit(it.map { it.toData() })
         }.collect()
     }.flowOn(Dispatchers.IO)
+
 }
